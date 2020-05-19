@@ -15,6 +15,8 @@
 		F3838E9C247357EA00E3E7AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3838E9B247357EA00E3E7AF /* Assets.xcassets */; };
 		F3838E9F247357EA00E3E7AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3838E9D247357EA00E3E7AF /* LaunchScreen.storyboard */; };
 		F3838EAA247357EA00E3E7AF /* phoneBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838EA9247357EA00E3E7AF /* phoneBookTests.swift */; };
+		F3838EB62473632100E3E7AF /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838EB52473632100E3E7AF /* UIViewController.swift */; };
+		F3838EB824738DA400E3E7AF /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838EB724738DA400E3E7AF /* CustomNavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,8 @@
 		F3838EA5247357EA00E3E7AF /* phoneBookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = phoneBookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3838EA9247357EA00E3E7AF /* phoneBookTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = phoneBookTests.swift; sourceTree = "<group>"; };
 		F3838EAB247357EA00E3E7AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3838EB52473632100E3E7AF /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		F3838EB724738DA400E3E7AF /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +85,7 @@
 		F3838E8E247357E600E3E7AF /* phoneBook */ = {
 			isa = PBXGroup;
 			children = (
+				F3838EB42473630400E3E7AF /* extension */,
 				F3838E8F247357E600E3E7AF /* AppDelegate.swift */,
 				F3838E91247357E600E3E7AF /* SceneDelegate.swift */,
 				F3838E93247357E600E3E7AF /* ViewController.swift */,
@@ -89,6 +94,7 @@
 				F3838E9D247357EA00E3E7AF /* LaunchScreen.storyboard */,
 				F3838EA0247357EA00E3E7AF /* Info.plist */,
 				F3838E98247357E600E3E7AF /* phoneBook.xcdatamodeld */,
+				F3838EB724738DA400E3E7AF /* CustomNavigationController.swift */,
 			);
 			path = phoneBook;
 			sourceTree = "<group>";
@@ -100,6 +106,14 @@
 				F3838EAB247357EA00E3E7AF /* Info.plist */,
 			);
 			path = phoneBookTests;
+			sourceTree = "<group>";
+		};
+		F3838EB42473630400E3E7AF /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				F3838EB52473632100E3E7AF /* UIViewController.swift */,
+			);
+			path = extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,10 +217,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3838EB824738DA400E3E7AF /* CustomNavigationController.swift in Sources */,
 				F3838E94247357E600E3E7AF /* ViewController.swift in Sources */,
 				F3838E90247357E600E3E7AF /* AppDelegate.swift in Sources */,
 				F3838E92247357E600E3E7AF /* SceneDelegate.swift in Sources */,
 				F3838E9A247357E600E3E7AF /* phoneBook.xcdatamodeld in Sources */,
+				F3838EB62473632100E3E7AF /* UIViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
