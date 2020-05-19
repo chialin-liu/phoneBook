@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		F3838E90247357E600E3E7AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838E8F247357E600E3E7AF /* AppDelegate.swift */; };
 		F3838E92247357E600E3E7AF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838E91247357E600E3E7AF /* SceneDelegate.swift */; };
-		F3838E94247357E600E3E7AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838E93247357E600E3E7AF /* ViewController.swift */; };
+		F3838E94247357E600E3E7AF /* ConnectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838E93247357E600E3E7AF /* ConnectionsViewController.swift */; };
 		F3838E97247357E600E3E7AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3838E95247357E600E3E7AF /* Main.storyboard */; };
 		F3838E9A247357E600E3E7AF /* phoneBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3838E98247357E600E3E7AF /* phoneBook.xcdatamodeld */; };
 		F3838E9C247357EA00E3E7AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3838E9B247357EA00E3E7AF /* Assets.xcassets */; };
@@ -17,6 +17,8 @@
 		F3838EAA247357EA00E3E7AF /* phoneBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838EA9247357EA00E3E7AF /* phoneBookTests.swift */; };
 		F3838EB62473632100E3E7AF /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838EB52473632100E3E7AF /* UIViewController.swift */; };
 		F3838EB824738DA400E3E7AF /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838EB724738DA400E3E7AF /* CustomNavigationController.swift */; };
+		F3838EBB24740E9200E3E7AF /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838EBA24740E9200E3E7AF /* Connection.swift */; };
+		F3838EBE2474120100E3E7AF /* CreateConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838EBD2474120100E3E7AF /* CreateConnectionController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,7 +35,7 @@
 		F3838E8C247357E600E3E7AF /* phoneBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = phoneBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3838E8F247357E600E3E7AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3838E91247357E600E3E7AF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F3838E93247357E600E3E7AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F3838E93247357E600E3E7AF /* ConnectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionsViewController.swift; sourceTree = "<group>"; };
 		F3838E96247357E600E3E7AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F3838E99247357E600E3E7AF /* phoneBook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = phoneBook.xcdatamodel; sourceTree = "<group>"; };
 		F3838E9B247357EA00E3E7AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -44,6 +46,8 @@
 		F3838EAB247357EA00E3E7AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3838EB52473632100E3E7AF /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		F3838EB724738DA400E3E7AF /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
+		F3838EBA24740E9200E3E7AF /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
+		F3838EBD2474120100E3E7AF /* CreateConnectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateConnectionController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,16 +89,16 @@
 		F3838E8E247357E600E3E7AF /* phoneBook */ = {
 			isa = PBXGroup;
 			children = (
+				F3838EBC247411E200E3E7AF /* Controller */,
+				F3838EB924740E8200E3E7AF /* Model */,
 				F3838EB42473630400E3E7AF /* extension */,
 				F3838E8F247357E600E3E7AF /* AppDelegate.swift */,
 				F3838E91247357E600E3E7AF /* SceneDelegate.swift */,
-				F3838E93247357E600E3E7AF /* ViewController.swift */,
 				F3838E95247357E600E3E7AF /* Main.storyboard */,
 				F3838E9B247357EA00E3E7AF /* Assets.xcassets */,
 				F3838E9D247357EA00E3E7AF /* LaunchScreen.storyboard */,
 				F3838EA0247357EA00E3E7AF /* Info.plist */,
 				F3838E98247357E600E3E7AF /* phoneBook.xcdatamodeld */,
-				F3838EB724738DA400E3E7AF /* CustomNavigationController.swift */,
 			);
 			path = phoneBook;
 			sourceTree = "<group>";
@@ -114,6 +118,24 @@
 				F3838EB52473632100E3E7AF /* UIViewController.swift */,
 			);
 			path = extension;
+			sourceTree = "<group>";
+		};
+		F3838EB924740E8200E3E7AF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F3838EBA24740E9200E3E7AF /* Connection.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F3838EBC247411E200E3E7AF /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F3838E93247357E600E3E7AF /* ConnectionsViewController.swift */,
+				F3838EB724738DA400E3E7AF /* CustomNavigationController.swift */,
+				F3838EBD2474120100E3E7AF /* CreateConnectionController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,10 +240,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3838EB824738DA400E3E7AF /* CustomNavigationController.swift in Sources */,
-				F3838E94247357E600E3E7AF /* ViewController.swift in Sources */,
+				F3838E94247357E600E3E7AF /* ConnectionsViewController.swift in Sources */,
 				F3838E90247357E600E3E7AF /* AppDelegate.swift in Sources */,
 				F3838E92247357E600E3E7AF /* SceneDelegate.swift in Sources */,
+				F3838EBB24740E9200E3E7AF /* Connection.swift in Sources */,
 				F3838E9A247357E600E3E7AF /* phoneBook.xcdatamodeld in Sources */,
+				F3838EBE2474120100E3E7AF /* CreateConnectionController.swift in Sources */,
 				F3838EB62473632100E3E7AF /* UIViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,19 +8,23 @@
 
 import UIKit
 
-class ViewController: UITableViewController {
+class ConnectionsViewController: UITableViewController {
     let cellId = "cellId"
+    let connections = [
+        Connection(name: "yorick", phoneNumber: 12345678),
+        Connection(name: "Mars", phoneNumber: 87654321)
+    ]
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         view.backgroundColor = .white
+        navigationItem.title = "PhoneBook"
         tableView.backgroundColor = UIColor(red: 10/255, green: 40/255, blue: 60/255, alpha: 1)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
 //        tableView.separatorStyle = .none
         tableView.separatorColor = .white
         //purpose: to set a blank view at the cellview bottom
         tableView.tableFooterView = UIView()
-        setupNavigationBar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Plus", style: .plain, target: self, action: #selector(handlePlus))
         navigationItem.rightBarButtonItem?.tintColor = .white
     }
@@ -33,24 +37,22 @@ class ViewController: UITableViewController {
         return 50
     }
     @objc func handlePlus() {
-        print("PLUS")
-    }
-    func setupNavigationBar() {
-        //        UIViewController().configureNavigationBar(largeTitleColor: .blue, backgoundColor: .yellow, tintColor: .red, title: "PhoneBook", preferredLargeTitle: true)
-                navigationController?.navigationBar.barTintColor = .black
-        //        navigationController?.navigationBar.prefersLargeTitles = true
-        //        navigationController?.navigationBar.isTranslucent = false
-                //Be aware
-                //instead of using navigationController?.navigationItem.title
-            navigationItem.title = "PhoneBook"
-            navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        let createConnectionController = CreateConnectionController()
+        let navController = CustomNavigationController(rootViewController: createConnectionController)
+//        navController.modalPresentationStyle = .fullScreen
+        present(navController, animated: true) {
+            print("Completed")
+        }
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return connections.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         cell.backgroundColor = .systemTeal
+        cell.textLabel?.text = connections[indexPath.row].name
+        cell.textLabel?.textColor = .white
+        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         return cell
     }
 }
