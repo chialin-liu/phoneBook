@@ -10,13 +10,27 @@ import UIKit
 
 class ConnectionsViewController: UITableViewController {
     let cellId = "cellId"
-    let connections = [
+    var connections = [
         Connection(name: "yorick", phoneNumber: 12345678),
         Connection(name: "Mars", phoneNumber: 87654321)
     ]
+    @objc func addConnection() {
+        let connection = Connection(name: "Weird", phoneNumber: 83738473)
+        connections.insert(connection, at: 0)
+        //method1 -> reload All data
+//        tableView.reloadData()
+        //method2 -> insert row in tableView
+        let index = IndexPath(row: 0, section: 0)
+        tableView.insertRows(at: [index], with: .automatic)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        //test
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reload", style: .plain, target: self, action: #selector(addConnection))
+        navigationItem.leftBarButtonItem?.tintColor = .white
+        
+        //end
         view.backgroundColor = .white
         navigationItem.title = "PhoneBook"
         tableView.backgroundColor = UIColor(red: 10/255, green: 40/255, blue: 60/255, alpha: 1)
@@ -39,7 +53,7 @@ class ConnectionsViewController: UITableViewController {
     @objc func handlePlus() {
         let createConnectionController = CreateConnectionController()
         let navController = CustomNavigationController(rootViewController: createConnectionController)
-//        navController.modalPresentationStyle = .fullScreen
+        navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true) {
             print("Completed")
         }
