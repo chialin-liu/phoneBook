@@ -8,11 +8,18 @@
 
 import Foundation
 import UIKit
+
+protocol CreateConnectionControllerDelegate {
+    func didAddConnection(connection: Connection)
+}
+
 class CreateConnectionController: UIViewController {
     var nameLabel: UILabel = UILabel()
     var phoneLabel: UILabel = UILabel()
     var nameTextField: UITextField = UITextField()
     var phoneTextField: UITextField = UITextField()
+    var delegate: CreateConnectionControllerDelegate?
+    var connectionVC: ConnectionsViewController = ConnectionsViewController()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -22,8 +29,12 @@ class CreateConnectionController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
     }
    @objc func handleSave() {
-        print("Save")
-    let connection = Connection(name: nameTextField.text ?? "", phoneNumber: Int(phoneTextField.text ?? "0") ?? 0)
+        dismiss(animated: true) {
+            let connection = Connection(name: self.nameTextField.text ?? "", phoneNumber: Int(self.phoneTextField.text ?? "0") ?? 0)
+//            self.connectionVC.addConnection(connection: connection)
+            //use delegate
+            self.delegate?.didAddConnection(connection: connection)
+        }
     }
     func setupUI() {
         nameLabel = creatNameLabel()

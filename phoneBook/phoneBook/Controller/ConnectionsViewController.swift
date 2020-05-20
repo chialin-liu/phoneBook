@@ -8,14 +8,8 @@
 
 import UIKit
 
-class ConnectionsViewController: UITableViewController {
-    let cellId = "cellId"
-    var connections = [
-        Connection(name: "yorick", phoneNumber: 12345678),
-        Connection(name: "Mars", phoneNumber: 87654321)
-    ]
-    @objc func addConnection() {
-        let connection = Connection(name: "Weird", phoneNumber: 83738473)
+class ConnectionsViewController: UITableViewController, CreateConnectionControllerDelegate {
+    func didAddConnection(connection: Connection) {
         connections.insert(connection, at: 0)
         //method1 -> reload All data
 //        tableView.reloadData()
@@ -23,11 +17,17 @@ class ConnectionsViewController: UITableViewController {
         let index = IndexPath(row: 0, section: 0)
         tableView.insertRows(at: [index], with: .automatic)
     }
+    
+    let cellId = "cellId"
+    var connections = [
+        Connection(name: "yorick", phoneNumber: 12345678),
+        Connection(name: "Mars", phoneNumber: 87654321)
+    ]
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         //test
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reload", style: .plain, target: self, action: #selector(addConnection))
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reload", style: .plain, target: self, action: #selector(addConnection))
         navigationItem.leftBarButtonItem?.tintColor = .white
         
         //end
@@ -52,6 +52,8 @@ class ConnectionsViewController: UITableViewController {
     }
     @objc func handlePlus() {
         let createConnectionController = CreateConnectionController()
+//        createConnectionController.connectionVC = self
+        createConnectionController.delegate = self
         let navController = CustomNavigationController(rootViewController: createConnectionController)
         navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true) {
