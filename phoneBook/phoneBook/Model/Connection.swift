@@ -7,8 +7,8 @@
 //
 
 import Foundation
-struct Connection {
-    let name: String
-    let phoneNumber: Int
-}
+//struct Connection {
+//    let name: String
+//    let phoneNumber: Int
+//}
 

@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+import CoreData
 protocol CreateConnectionControllerDelegate {
     func didAddConnection(connection: Connection)
 }
@@ -29,12 +29,22 @@ class CreateConnectionController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
     }
    @objc func handleSave() {
-        dismiss(animated: true) {
-            let connection = Connection(name: self.nameTextField.text ?? "", phoneNumber: Int(self.phoneTextField.text ?? "0") ?? 0)
-//            self.connectionVC.addConnection(connection: connection)
-            //use delegate
-            self.delegate?.didAddConnection(connection: connection)
+    //initialization Core data
+        let persistentContainer = NSPersistentContainer(name: "phoneBook")
+        persistentContainer.loadPersistentStores { (storeDescription, err) in
+            if let err = err {
+                fatalError("loading of store failed, \(err)")
+            }
         }
+        let context = persistentContainer.viewContext
+        let connection = NSEntityDescription.insertNewObject(forEntityName: "Connection", into: context)
+        connection.setValue(nameTextField.text, forKey: "name")
+        try? context.save()
+//        dismiss(animated: true) {
+//            let connection = Connection(name: self.nameTextField.text ?? "", phoneNumber: Int(self.phoneTextField.text ?? "0") ?? 0)
+//            //use delegate
+//            self.delegate?.didAddConnection(connection: connection)
+//        }
     }
     func setupUI() {
         nameLabel = creatNameLabel()

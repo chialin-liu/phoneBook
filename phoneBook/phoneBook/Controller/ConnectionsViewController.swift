@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import CoreData
 class ConnectionsViewController: UITableViewController, CreateConnectionControllerDelegate {
     func didAddConnection(connection: Connection) {
         connections.insert(connection, at: 0)
@@ -17,15 +17,32 @@ class ConnectionsViewController: UITableViewController, CreateConnectionControll
         let index = IndexPath(row: 0, section: 0)
         tableView.insertRows(at: [index], with: .automatic)
     }
-    
+    func fetchConnections() {
+        //initialization Core data
+        let persistentContainer = NSPersistentContainer(name: "phoneBook")
+        persistentContainer.loadPersistentStores { (storeDescription, err) in
+            if let err = err {
+                fatalError("loading of store failed, \(err)")
+            }
+        }
+        let context = persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<Connection>(entityName: "Connection")
+        let fetches = try? context.fetch(fetchRequest)
+        guard let fetcheConnections = fetches else { return }
+        for connection in fetcheConnections {
+            print("Connection Name: ", connection.name ?? "")
+        }
+    }
     let cellId = "cellId"
-    var connections = [
-        Connection(name: "yorick", phoneNumber: 12345678),
-        Connection(name: "Mars", phoneNumber: 87654321)
-    ]
+    var connections = [Connection]()
+//    var connections = [
+//        Connection(name: "yorick", phoneNumber: 12345678),
+//        Connection(name: "Mars", phoneNumber: 87654321)
+//    ]
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        fetchConnections()
         //test
 //        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reload", style: .plain, target: self, action: #selector(addConnection))
         navigationItem.leftBarButtonItem?.tintColor = .white
