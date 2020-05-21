@@ -9,6 +9,9 @@
 import UIKit
 import CoreData
 class ConnectionsViewController: UITableViewController, CreateConnectionControllerDelegate {
+    func didUpdateConnection() {
+        tableView.reloadData()
+    }
     func didAddConnection(connection: Connection) {
         connections.insert(connection, at: 0)
         //method1 -> reload All data
@@ -18,17 +21,25 @@ class ConnectionsViewController: UITableViewController, CreateConnectionControll
         tableView.insertRows(at: [index], with: .automatic)
     }
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteIndex = indexPath.row
-        let connection = connections[deleteIndex]
+        let selectedIndex = indexPath.row
+        let connection = connections[selectedIndex]
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completeHandler) in
-            self.connections.remove(at: deleteIndex)
+            self.connections.remove(at: selectedIndex)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
             let context = CoreDataManager.shared.persistentContainer.viewContext
             context.delete(connection)
             try? context.save()
+            completeHandler(false)
+        }
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { (_, _, completeHandler) in
+            let createConnectionController = CreateConnectionController()
+            createConnectionController.delegate = self
+            createConnectionController.connection = self.connections[selectedIndex]
+            let navController = UINavigationController(rootViewController: createConnectionController)
+            self.present(navController, animated: true, completion: nil)
             completeHandler(true)
         }
-        return UISwipeActionsConfiguration(actions: [deleteAction])
+        return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
     }
     func fetchConnections() {
         //initialization Core data
@@ -90,6 +101,13 @@ class ConnectionsViewController: UITableViewController, CreateConnectionControll
         cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         return cell
+    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let createConnectionController = CreateConnectionController()
+        createConnectionController.delegate = self
+        createConnectionController.connection = self.connections[indexPath.row]
+        let navController = UINavigationController(rootViewController: createConnectionController)
+        self.present(navController, animated: true, completion: nil)
     }
 }
 

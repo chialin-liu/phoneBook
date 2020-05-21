@@ -11,26 +11,50 @@ import UIKit
 import CoreData
 protocol CreateConnectionControllerDelegate {
     func didAddConnection(connection: Connection)
+    func didUpdateConnection()
 }
 
 class CreateConnectionController: UIViewController {
     var nameLabel: UILabel = UILabel()
     var phoneLabel: UILabel = UILabel()
-    var nameTextField: UITextField = UITextField()
-    var phoneTextField: UITextField = UITextField()
+//    var nameTextField: UITextField = UITextField()
+    let nameTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Enter name"
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+    let phoneTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "Enter Phone"
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
     var delegate: CreateConnectionControllerDelegate?
-    var connectionVC: ConnectionsViewController = ConnectionsViewController()
+    var connection: Connection? {
+        didSet {
+            nameTextField.text = connection?.name ?? ""
+        }
+    }
+//    var connectionVC: ConnectionsViewController = ConnectionsViewController()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         view.backgroundColor = UIColor(red: 10/255, green: 40/255, blue: 60/255, alpha: 1)
-        navigationItem.title = "Create information"
+//        navigationItem.title = "Create information"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(handleSave))
     }
-   @objc func handleSave() {
-    //initialization Core data
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if connection != nil {
+            navigationItem.title = "Edit information"
+        } else {
+            navigationItem.title = "Create information"
+        }
+    }
+    fileprivate func createConnection() {
+        //initialization Core data
         let context = CoreDataManager.shared.persistentContainer.viewContext
         let connection = NSEntityDescription.insertNewObject(forEntityName: "Connection", into: context)
         connection.setValue(nameTextField.text, forKey: "name")
@@ -38,17 +62,29 @@ class CreateConnectionController: UIViewController {
         dismiss(animated: true) {
             self.delegate?.didAddConnection(connection: connection as! Connection)
         }
-//        dismiss(animated: true) {
-//            let connection = Connection(name: self.nameTextField.text ?? "", phoneNumber: Int(self.phoneTextField.text ?? "0") ?? 0)
-//            //use delegate
-//            self.delegate?.didAddConnection(connection: connection)
-//        }
+    }
+    fileprivate func updateConnection() {
+        //initialization Core data
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        connection?.name = nameTextField.text
+        try? context.save()
+        dismiss(animated: true) {
+            self.delegate?.didUpdateConnection()
+        }
+    }
+    @objc func handleSave() {
+        if connection == nil {
+            createConnection()
+        } else {
+            updateConnection()
+        }
     }
     func setupUI() {
         nameLabel = creatNameLabel()
         phoneLabel = createPhoneLabel()
-        nameTextField = createNameTextField()
-        phoneTextField = createPhoneTextField()
+        //cannot use didSet
+//        nameTextField = createNameTextField()
+//        phoneTextField = createPhoneTextField()
         let backgroundView = UIView()
         
         view.addSubview(backgroundView)
@@ -71,7 +107,6 @@ class CreateConnectionController: UIViewController {
         nameLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
 //        nameLabel.backgroundColor = .red
         nameLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
         
         nameTextField.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
         nameTextField.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor).isActive = true
