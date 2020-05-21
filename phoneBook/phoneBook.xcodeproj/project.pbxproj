@@ -19,6 +19,7 @@
 		F3838EB824738DA400E3E7AF /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838EB724738DA400E3E7AF /* CustomNavigationController.swift */; };
 		F3838EBB24740E9200E3E7AF /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838EBA24740E9200E3E7AF /* Connection.swift */; };
 		F3838EBE2474120100E3E7AF /* CreateConnectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838EBD2474120100E3E7AF /* CreateConnectionController.swift */; };
+		F3838EC124764F1A00E3E7AF /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838EC024764F1A00E3E7AF /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		F3838EB724738DA400E3E7AF /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		F3838EBA24740E9200E3E7AF /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
 		F3838EBD2474120100E3E7AF /* CreateConnectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateConnectionController.swift; sourceTree = "<group>"; };
+		F3838EC024764F1A00E3E7AF /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				F3838EBA24740E9200E3E7AF /* Connection.swift */,
+				F3838EC024764F1A00E3E7AF /* CoreDataManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				F3838E92247357E600E3E7AF /* SceneDelegate.swift in Sources */,
 				F3838EBB24740E9200E3E7AF /* Connection.swift in Sources */,
 				F3838E9A247357E600E3E7AF /* phoneBook.xcdatamodeld in Sources */,
+				F3838EC124764F1A00E3E7AF /* CoreDataManager.swift in Sources */,
 				F3838EBE2474120100E3E7AF /* CreateConnectionController.swift in Sources */,
 				F3838EB62473632100E3E7AF /* UIViewController.swift in Sources */,
 			);

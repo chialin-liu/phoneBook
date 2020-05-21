@@ -19,26 +19,16 @@ class ConnectionsViewController: UITableViewController, CreateConnectionControll
     }
     func fetchConnections() {
         //initialization Core data
-        let persistentContainer = NSPersistentContainer(name: "phoneBook")
-        persistentContainer.loadPersistentStores { (storeDescription, err) in
-            if let err = err {
-                fatalError("loading of store failed, \(err)")
-            }
-        }
-        let context = persistentContainer.viewContext
+        let context = CoreDataManager.shared.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<Connection>(entityName: "Connection")
         let fetches = try? context.fetch(fetchRequest)
         guard let fetcheConnections = fetches else { return }
-        for connection in fetcheConnections {
-            print("Connection Name: ", connection.name ?? "")
-        }
+        connections = fetcheConnections
+        //TBD
+        tableView.reloadData()
     }
     let cellId = "cellId"
     var connections = [Connection]()
-//    var connections = [
-//        Connection(name: "yorick", phoneNumber: 12345678),
-//        Connection(name: "Mars", phoneNumber: 87654321)
-//    ]
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.

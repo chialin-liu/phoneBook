@@ -30,16 +30,14 @@ class CreateConnectionController: UIViewController {
     }
    @objc func handleSave() {
     //initialization Core data
-        let persistentContainer = NSPersistentContainer(name: "phoneBook")
-        persistentContainer.loadPersistentStores { (storeDescription, err) in
-            if let err = err {
-                fatalError("loading of store failed, \(err)")
-            }
-        }
-        let context = persistentContainer.viewContext
+        
+        let context = CoreDataManager.shared.persistentContainer.viewContext
         let connection = NSEntityDescription.insertNewObject(forEntityName: "Connection", into: context)
         connection.setValue(nameTextField.text, forKey: "name")
         try? context.save()
+        dismiss(animated: true) {
+            self.delegate?.didAddConnection(connection: connection as! Connection)
+        }
 //        dismiss(animated: true) {
 //            let connection = Connection(name: self.nameTextField.text ?? "", phoneNumber: Int(self.phoneTextField.text ?? "0") ?? 0)
 //            //use delegate
