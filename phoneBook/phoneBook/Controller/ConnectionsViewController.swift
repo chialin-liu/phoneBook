@@ -17,6 +17,19 @@ class ConnectionsViewController: UITableViewController, CreateConnectionControll
         let index = IndexPath(row: 0, section: 0)
         tableView.insertRows(at: [index], with: .automatic)
     }
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteIndex = indexPath.row
+        let connection = connections[deleteIndex]
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completeHandler) in
+            self.connections.remove(at: deleteIndex)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            let context = CoreDataManager.shared.persistentContainer.viewContext
+            context.delete(connection)
+            try? context.save()
+            completeHandler(true)
+        }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
     func fetchConnections() {
         //initialization Core data
         let context = CoreDataManager.shared.persistentContainer.viewContext
