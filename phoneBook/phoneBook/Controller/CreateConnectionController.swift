@@ -24,6 +24,12 @@ class CreateConnectionController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
+    let datePicker: UIDatePicker = {
+        let dp = UIDatePicker()
+        dp.datePickerMode = .date
+        dp.translatesAutoresizingMaskIntoConstraints = false
+        return dp
+    }()
     let phoneTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter Phone"
@@ -34,6 +40,8 @@ class CreateConnectionController: UIViewController {
     var connection: Connection? {
         didSet {
             nameTextField.text = connection?.name ?? ""
+            phoneTextField.text = connection?.phone ?? ""
+            datePicker.date = connection?.buildDate ?? Date()
         }
     }
 //    var connectionVC: ConnectionsViewController = ConnectionsViewController()
@@ -58,6 +66,8 @@ class CreateConnectionController: UIViewController {
         let context = CoreDataManager.shared.persistentContainer.viewContext
         let connection = NSEntityDescription.insertNewObject(forEntityName: "Connection", into: context)
         connection.setValue(nameTextField.text, forKey: "name")
+        connection.setValue(phoneTextField.text, forKey: "phone")
+        connection.setValue(datePicker.date, forKey: "buildDate")
         try? context.save()
         dismiss(animated: true) {
             self.delegate?.didAddConnection(connection: connection as! Connection)
@@ -67,6 +77,8 @@ class CreateConnectionController: UIViewController {
         //initialization Core data
         let context = CoreDataManager.shared.persistentContainer.viewContext
         connection?.name = nameTextField.text
+        connection?.phone = phoneTextField.text
+        connection?.buildDate = datePicker.date
         try? context.save()
         dismiss(animated: true) {
             self.delegate?.didUpdateConnection()
@@ -92,13 +104,13 @@ class CreateConnectionController: UIViewController {
         view.addSubview(nameTextField)
         view.addSubview(phoneLabel)
         view.addSubview(phoneTextField)
-        
+        view.addSubview(datePicker)
         backgroundView.backgroundColor = .lightGray
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        backgroundView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        backgroundView.heightAnchor.constraint(equalToConstant: 300).isActive = true
         
         //view.topAnchor will hide the label, instead, use safeAreaLayoutGuide to place correct position
 //        nameLabel.topAnchor.constraint(equalTo: view.topAnchor)
@@ -125,6 +137,11 @@ class CreateConnectionController: UIViewController {
         phoneTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         phoneTextField.bottomAnchor.constraint(equalTo: phoneLabel.bottomAnchor).isActive = true
         
+        datePicker.topAnchor.constraint(equalTo: phoneTextField.bottomAnchor).isActive = true
+        datePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        datePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        datePicker.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor).isActive = true
+        
     }
     func creatNameLabel() -> UILabel {
         let label = UILabel()
@@ -133,24 +150,12 @@ class CreateConnectionController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
-        func createPhoneLabel() -> UILabel {
-            let label = UILabel()
-            label.text = "Phone"
-    //        label.backgroundColor = .lightGray
-            label.translatesAutoresizingMaskIntoConstraints = false
-            return label
-        }
-    func createNameTextField() -> UITextField {
-        let txfield = UITextField()
-        txfield.placeholder = "Enter Name"
-        txfield.translatesAutoresizingMaskIntoConstraints = false
-        return txfield
-    }
-    func createPhoneTextField() -> UITextField {
-        let txfield = UITextField()
-        txfield.placeholder = "Enter Phone"
-        txfield.translatesAutoresizingMaskIntoConstraints = false
-        return txfield
+    func createPhoneLabel() -> UILabel {
+        let label = UILabel()
+        label.text = "Phone"
+//        label.backgroundColor = .lightGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }
     @objc func handleCancel() {
         dismiss(animated: true) {

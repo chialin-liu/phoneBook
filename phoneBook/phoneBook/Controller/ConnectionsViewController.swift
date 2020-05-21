@@ -97,7 +97,15 @@ class ConnectionsViewController: UITableViewController, CreateConnectionControll
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         cell.backgroundColor = .systemTeal
-        cell.textLabel?.text = connections[indexPath.row].name
+        let connection = connections[indexPath.row]
+        if let name = connection.name, let buildDate = connection.buildDate {
+            let dateFormat = DateFormatter()
+            dateFormat.dateFormat = "yyyy, MMM dd"
+            let dateString = dateFormat.string(from: buildDate)
+            cell.textLabel?.text = "\(name),  \(dateString)"
+        } else {
+            cell.textLabel?.text = connection.name
+        }
         cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         return cell
