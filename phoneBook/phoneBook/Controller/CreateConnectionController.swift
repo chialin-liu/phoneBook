@@ -14,7 +14,7 @@ protocol CreateConnectionControllerDelegate {
     func didUpdateConnection()
 }
 
-class CreateConnectionController: UIViewController {
+class CreateConnectionController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var nameLabel: UILabel = UILabel()
     var phoneLabel: UILabel = UILabel()
 //    var nameTextField: UITextField = UITextField()
@@ -36,6 +36,36 @@ class CreateConnectionController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
+    //TBD: why lazy var
+    lazy var photoImageView: UIImageView = {
+        let iv = UIImageView(image: UIImage(named: "addPhoto"))
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.clipsToBounds = true
+        iv.isHighlighted = true
+        iv.layer.cornerRadius = 100 / 2
+        iv.contentMode = .scaleAspectFill
+        iv.isUserInteractionEnabled = true
+        iv.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleAddPhoto)))
+        return iv
+    }()
+    @objc func handleAddPhoto() {
+        print("Add photo")
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let editImage = info[.editedImage] as? UIImage {
+            photoImageView.image = editImage
+        } else if let original = info[.originalImage] as? UIImage {
+            photoImageView.image = original
+        }
+        dismiss(animated: true, completion: nil)
+    }
     var delegate: CreateConnectionControllerDelegate?
     var connection: Connection? {
         didSet {
@@ -105,16 +135,24 @@ class CreateConnectionController: UIViewController {
         view.addSubview(phoneLabel)
         view.addSubview(phoneTextField)
         view.addSubview(datePicker)
+        view.addSubview(photoImageView)
+        
         backgroundView.backgroundColor = .lightGray
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        backgroundView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        backgroundView.heightAnchor.constraint(equalToConstant: 400).isActive = true
+        
+        photoImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        photoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        photoImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        photoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 15).isActive = true
         
         //view.topAnchor will hide the label, instead, use safeAreaLayoutGuide to place correct position
 //        nameLabel.topAnchor.constraint(equalTo: view.topAnchor)
-        nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+//        nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: photoImageView.bottomAnchor).isActive = true
         nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
         nameLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
 //        nameLabel.backgroundColor = .red
