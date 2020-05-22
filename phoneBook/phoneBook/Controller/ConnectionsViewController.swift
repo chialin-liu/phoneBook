@@ -108,6 +108,9 @@ class ConnectionsViewController: UITableViewController, CreateConnectionControll
         }
         cell.textLabel?.textColor = .white
         cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        if let data = connection.imageData {
+            cell.imageView?.image = UIImage(data: data)
+        }
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

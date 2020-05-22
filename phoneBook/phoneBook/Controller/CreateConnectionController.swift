@@ -40,9 +40,9 @@ class CreateConnectionController: UIViewController, UIImagePickerControllerDeleg
     lazy var photoImageView: UIImageView = {
         let iv = UIImageView(image: UIImage(named: "addPhoto"))
         iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.clipsToBounds = true
+//        iv.clipsToBounds = true
         iv.isHighlighted = true
-        iv.layer.cornerRadius = 100 / 2
+//        iv.layer.cornerRadius = iv.frame.width / 2
         iv.contentMode = .scaleAspectFill
         iv.isUserInteractionEnabled = true
         iv.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleAddPhoto)))
@@ -64,6 +64,8 @@ class CreateConnectionController: UIViewController, UIImagePickerControllerDeleg
         } else if let original = info[.originalImage] as? UIImage {
             photoImageView.image = original
         }
+        photoImageView.layer.cornerRadius = photoImageView.frame.width / 2
+        photoImageView.clipsToBounds = true
         dismiss(animated: true, completion: nil)
     }
     var delegate: CreateConnectionControllerDelegate?
@@ -72,6 +74,12 @@ class CreateConnectionController: UIViewController, UIImagePickerControllerDeleg
             nameTextField.text = connection?.name ?? ""
             phoneTextField.text = connection?.phone ?? ""
             datePicker.date = connection?.buildDate ?? Date()
+            if let imageData = connection?.imageData{
+                photoImageView.image = UIImage(data: imageData)
+                photoImageView.layer.cornerRadius = photoImageView.frame.width / 2
+                photoImageView.clipsToBounds = true
+            }
+            
         }
     }
 //    var connectionVC: ConnectionsViewController = ConnectionsViewController()
@@ -98,6 +106,8 @@ class CreateConnectionController: UIViewController, UIImagePickerControllerDeleg
         connection.setValue(nameTextField.text, forKey: "name")
         connection.setValue(phoneTextField.text, forKey: "phone")
         connection.setValue(datePicker.date, forKey: "buildDate")
+        let data = photoImageView.image?.jpegData(compressionQuality: 0.8)
+        connection.setValue(data, forKey: "imageData")
         try? context.save()
         dismiss(animated: true) {
             self.delegate?.didAddConnection(connection: connection as! Connection)
@@ -109,6 +119,8 @@ class CreateConnectionController: UIViewController, UIImagePickerControllerDeleg
         connection?.name = nameTextField.text
         connection?.phone = phoneTextField.text
         connection?.buildDate = datePicker.date
+        let data = photoImageView.image?.jpegData(compressionQuality: 0.8)
+        connection?.imageData = data
         try? context.save()
         dismiss(animated: true) {
             self.delegate?.didUpdateConnection()
