@@ -72,6 +72,26 @@ class ConnectionsViewController: UITableViewController, CreateConnectionControll
         tableView.tableFooterView = UIView()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Plus", style: .plain, target: self, action: #selector(handlePlus))
         navigationItem.rightBarButtonItem?.tintColor = .white
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(handleReset))
+        navigationItem.leftBarButtonItem?.tintColor = .white
+    }
+    @objc func handleReset() {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Connection")
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        try? context.execute(batchDeleteRequest)
+        //animation way
+        var deleteIndices = [IndexPath]()
+        for (index, _) in connections.enumerated() {
+            let indexPath = IndexPath(row: index, section: 0)
+            deleteIndices.append(indexPath)
+        }
+        connections.removeAll()
+        tableView.deleteRows(at: deleteIndices, with: .fade)
+        
+        //easy way
+//        connections.removeAll()
+//        tableView.reloadData()
     }
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
@@ -80,6 +100,24 @@ class ConnectionsViewController: UITableViewController, CreateConnectionControll
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
+    }
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if connections.count == 0 {
+            let label = UILabel()
+            label.text = "No connections"
+            label.textColor = .white
+            label.textAlignment = .center
+            return label
+        } else {
+            return UIView()
+        }
+    }
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if connections.count == 0 {
+            return 150
+        } else {
+            return 0
+        }
     }
     @objc func handlePlus() {
         let createConnectionController = CreateConnectionController()
