@@ -23,6 +23,8 @@
 		F3838EC42477DAD000E3E7AF /* ConnectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838EC32477DAD000E3E7AF /* ConnectionCell.swift */; };
 		F3838EC624781AAE00E3E7AF /* ConnectionsController+CreateConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838EC524781AAE00E3E7AF /* ConnectionsController+CreateConnection.swift */; };
 		F3838EC824781BBF00E3E7AF /* ConnectionsController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838EC724781BBF00E3E7AF /* ConnectionsController+UITableView.swift */; };
+		F3838ECA247821D800E3E7AF /* PersonalDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838EC9247821D800E3E7AF /* PersonalDetailController.swift */; };
+		F3838ECC247895ED00E3E7AF /* CreatePersonalDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3838ECB247895ED00E3E7AF /* CreatePersonalDetailController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,8 @@
 		F3838EC32477DAD000E3E7AF /* ConnectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionCell.swift; sourceTree = "<group>"; };
 		F3838EC524781AAE00E3E7AF /* ConnectionsController+CreateConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConnectionsController+CreateConnection.swift"; sourceTree = "<group>"; };
 		F3838EC724781BBF00E3E7AF /* ConnectionsController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConnectionsController+UITableView.swift"; sourceTree = "<group>"; };
+		F3838EC9247821D800E3E7AF /* PersonalDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDetailController.swift; sourceTree = "<group>"; };
+		F3838ECB247895ED00E3E7AF /* CreatePersonalDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePersonalDetailController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +150,8 @@
 				F3838EBD2474120100E3E7AF /* CreateConnectionController.swift */,
 				F3838EC524781AAE00E3E7AF /* ConnectionsController+CreateConnection.swift */,
 				F3838EC724781BBF00E3E7AF /* ConnectionsController+UITableView.swift */,
+				F3838EC9247821D800E3E7AF /* PersonalDetailController.swift */,
+				F3838ECB247895ED00E3E7AF /* CreatePersonalDetailController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -260,6 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3838EB824738DA400E3E7AF /* CustomNavigationController.swift in Sources */,
+				F3838ECA247821D800E3E7AF /* PersonalDetailController.swift in Sources */,
 				F3838EC824781BBF00E3E7AF /* ConnectionsController+UITableView.swift in Sources */,
 				F3838E94247357E600E3E7AF /* ConnectionsViewController.swift in Sources */,
 				F3838E90247357E600E3E7AF /* AppDelegate.swift in Sources */,
@@ -270,6 +277,7 @@
 				F3838EBE2474120100E3E7AF /* CreateConnectionController.swift in Sources */,
 				F3838EB62473632100E3E7AF /* UIViewController.swift in Sources */,
 				F3838EC624781AAE00E3E7AF /* ConnectionsController+CreateConnection.swift in Sources */,
+				F3838ECC247895ED00E3E7AF /* CreatePersonalDetailController.swift in Sources */,
 				F3838EC42477DAD000E3E7AF /* ConnectionCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

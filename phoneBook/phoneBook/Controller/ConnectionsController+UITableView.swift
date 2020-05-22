@@ -68,10 +68,8 @@ extension ConnectionsViewController {
         return 60
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let createConnectionController = CreateConnectionController()
-        createConnectionController.delegate = self
-        createConnectionController.connection = self.connections[indexPath.row]
-        let navController = UINavigationController(rootViewController: createConnectionController)
-        self.present(navController, animated: true, completion: nil)
+        let personalDetailController = PersonalDetailController()
+        personalDetailController.connection = connections[indexPath.row]
+        navigationController?.pushViewController(personalDetailController, animated: true)
     }
 }
